@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S & J Wedding</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:Poppins;
+background: radial-gradient(circle at top,#1b2b22,#0c1410);
+color:white;
+overflow-x:hidden;
+}
+
+/* INTRO */
+#intro{
+position:fixed;
+inset:0;
+background:#0c1410;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+/* MAIN */
+.container{
+display:none;
+text-align:center;
+padding:20px;
+}
+
+/* GOLD */
+.gold{
+background:linear-gradient(45deg,#caa64b,#f5e6a8,#caa64b);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* LOGO */
+.logo{
+font-family:'Cinzel';
+font-size:44px;
+letter-spacing:8px;
+}
+
+/* NAMES */
+.names{
+font-family:'Great Vibes';
+font-size:56px;
+margin:20px 0;
+}
+
+/* CARD */
+.card{
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(30px);
+padding:30px;
+border-radius:25px;
+max-width:400px;
+margin:40px auto;
+}
+
+/* BUTTON */
+.btn{
+width:100%;
+padding:14px;
+margin-top:12px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#caa64b,#f5e6a8);
+color:#1c2e24;
+font-weight:600;
+cursor:pointer;
+}
+
+/* PAGES */
+.page{
+display:none;
+opacity:0;
+transform:translateY(20px);
+transition:0.5s;
+}
+.page.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* MUSIC BUTTON */
+.music-btn{
+position:fixed;
+top:20px;
+right:20px;
+width:45px;height:45px;
+border-radius:50%;
+background:rgba(255,255,255,0.1);
+border:none;
+color:white;
+font-size:18px;
+cursor:pointer;
+}
+
+/* PETALS */
+.petal{
+position:fixed;
+top:-10px;
+width:8px;height:8px;
+background:pink;
+border-radius:50%;
+animation:fall linear infinite;
+}
+@keyframes fall{to{transform:translateY(110vh)}}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+<h1 class="gold">S & J</h1>
+<p>Nikah Ceremony Invitation</p>
+<button class="btn" onclick="start()">Enter</button>
+</div>
+
+<!-- MUSIC BUTTON -->
+<button class="music-btn" onclick="toggleMusic()">🔊</button>
+
+<!-- MAIN -->
+<div class="container" id="main">
+
+<!-- MAIN CARD -->
+<div class="card" id="card">
+
+<div class="logo gold">S & J</div>
+
+<div class="gold">﷽</div>
+
+<p>In the name of Allah, the Most Gracious, the Most Merciful</p>
+<p>Together with their families</p>
+
+<div class="names gold">
+Shaima Sheri<br> ❤ <br>Junaid
+</div>
+
+<p>June 7, 2026 • 12:00 PM</p>
+
+<p onclick="openMap()" style="cursor:pointer;">
+Triangle Convention Center<br>
+Ayyappanov, Malappuram
+</p>
+
+<button class="btn" onclick="openMap()">View Location</button>
+<button class="btn" onclick="addCalendar()">Add to Calendar</button>
+
+<h3>Will you join us?</h3>
+
+<button class="btn" onclick="sendRSVP('Yes')">✓ Yes, with joy!</button>
+<button class="btn" style="background:#888;color:white;" onclick="sendRSVP('No')">✕ Sorry, I can't make it</button>
+
+</div>
+
+<!-- YES PAGE -->
+<div id="yesPage" class="page card">
+<h2 class="gold">We Can't Wait!</h2>
+<p>See you on June 7, 2026 💖</p>
+<button class="btn" onclick="goBack()">← Back</button>
+</div>
+
+<!-- NO PAGE -->
+<div id="noPage" class="page card">
+<h2 class="gold">We'll Miss You</h2>
+<p>You'll be in our hearts 💖</p>
+<button class="btn" onclick="sendRSVP('Yes')">Change my mind</button>
+<button class="btn" onclick="goBack()">← Back</button>
+</div>
+
+</div>
+
+<!-- YOUR LOCAL MUSIC -->
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* START */
+function start(){
+intro.style.display="none";
+main.style.display="block";
+
+const music = document.getElementById("music");
+music.play().catch(()=>{});
+}
+
+/* MUSIC CONTROL */
+let playing=true;
+function toggleMusic(){
+const music=document.getElementById("music");
+
+if(playing){
+music.pause();
+event.target.innerText="🔇";
+}else{
+music.play();
+event.target.innerText="🔊";
+}
+playing=!playing;
+}
+
+/* MAP */
+function openMap(){
+window.open("https://maps.app.goo.gl/nJRiQzDbnz9yDSkZA");
+}
+
+/* CALENDAR */
+function addCalendar(){
+window.open("https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding&dates=20260607T063000Z/20260607T093000Z");
+}
+
+/* RSVP */
+function sendRSVP(r){
+card.style.display="none";
+
+if(r=="Yes"){
+yesPage.style.display="block";
+setTimeout(()=>yesPage.classList.add("show"),50);
+celebrate();
+}else{
+noPage.style.display="block";
+setTimeout(()=>noPage.classList.add("show"),50);
+}
+}
+
+/* BACK */
+function goBack(){
+card.style.display="block";
+yesPage.style.display="none";
+noPage.style.display="none";
+yesPage.classList.remove("show");
+noPage.classList.remove("show");
+}
+
+/* CELEBRATION */
+function celebrate(){
+for(let i=0;i<20;i++){
+let c=document.createElement("div");
+c.className="petal";
+c.style.left=Math.random()*100+"vw";
+c.style.animationDuration="2s";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),2000);
+}
+}
+
+/* PETALS */
+setInterval(()=>{
+let p=document.createElement("div");
+p.className="petal";
+p.style.left=Math.random()*100+"vw";
+p.style.animationDuration=(3+Math.random()*5)+"s";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),8000);
+},300);
+
+</script>
+
+</body>
+</html>
