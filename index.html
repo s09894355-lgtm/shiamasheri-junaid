@@ -46,14 +46,14 @@ background:linear-gradient(45deg,#caa64b,#f5e6a8,#caa64b);
 /* LOGO */
 .logo{
 font-family:'Cinzel';
-font-size:44px;
+font-size:48px;
 letter-spacing:8px;
 }
 
 /* NAMES */
 .names{
 font-family:'Great Vibes';
-font-size:56px;
+font-size:60px;
 margin:20px 0;
 }
 
@@ -116,6 +116,56 @@ border-radius:50%;
 animation:fall linear infinite;
 }
 @keyframes fall{to{transform:translateY(110vh)}}
+
+/* FOOTER */
+.footer{
+text-align:center;
+margin-top:50px;
+padding-bottom:15px;
+opacity:0.9;
+}
+
+.footer-line{
+width:60%;
+height:1px;
+margin:20px auto;
+background:linear-gradient(to right,transparent,#caa64b,transparent);
+opacity:0.5;
+}
+
+.footer-content{
+font-size:12px;
+color:#aaa;
+letter-spacing:1px;
+}
+
+.footer-content a{
+display:inline-block;
+margin-top:5px;
+font-size:14px;
+color:#f5e6a8;
+text-decoration:none;
+position:relative;
+}
+
+.footer-content a:hover{
+text-shadow:0 0 8px rgba(245,230,168,0.6);
+}
+
+.footer-content a::after{
+content:"";
+position:absolute;
+left:0;
+bottom:-2px;
+width:0%;
+height:1px;
+background:#caa64b;
+transition:0.3s;
+}
+
+.footer-content a:hover::after{
+width:100%;
+}
 </style>
 </head>
 
@@ -124,7 +174,7 @@ animation:fall linear infinite;
 <!-- INTRO -->
 <div id="intro">
 <h1 class="gold">S & J</h1>
-<p>Nikah Ceremony Invitation</p>
+<p>Wedding Invitation</p>
 <button class="btn" onclick="start()">Enter</button>
 </div>
 
@@ -145,7 +195,7 @@ animation:fall linear infinite;
 <p>Together with their families</p>
 
 <div class="names gold">
-Shaima Sheri<br> ❤ <br>Junaid
+Shaima Sheri ❤ Junaid
 </div>
 
 <p>June 7, 2026 • 12:00 PM</p>
@@ -182,7 +232,17 @@ Ayyappanov, Malappuram
 
 </div>
 
-<!-- YOUR LOCAL MUSIC -->
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-line"></div>
+
+<div class="footer-content">
+<span>Crafted with ✨ by</span><br>
+<a href="https://instagram.com/sinan._u" target="_blank">@sinan._u</a>
+</div>
+</footer>
+
+<!-- LOCAL MUSIC -->
 <audio id="music" loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
@@ -193,23 +253,14 @@ Ayyappanov, Malappuram
 function start(){
 intro.style.display="none";
 main.style.display="block";
-
-const music = document.getElementById("music");
 music.play().catch(()=>{});
 }
 
-/* MUSIC CONTROL */
+/* MUSIC */
 let playing=true;
 function toggleMusic(){
-const music=document.getElementById("music");
-
-if(playing){
-music.pause();
-event.target.innerText="🔇";
-}else{
-music.play();
-event.target.innerText="🔊";
-}
+if(playing){music.pause();event.target.innerText="🔇";}
+else{music.play();event.target.innerText="🔊";}
 playing=!playing;
 }
 
@@ -246,7 +297,16 @@ yesPage.classList.remove("show");
 noPage.classList.remove("show");
 }
 
-/* CELEBRATION */
+/* PETALS */
+setInterval(()=>{
+let p=document.createElement("div");
+p.className="petal";
+p.style.left=Math.random()*100+"vw";
+p.style.animationDuration=(3+Math.random()*5)+"s";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),8000);
+},300);
+
 function celebrate(){
 for(let i=0;i<20;i++){
 let c=document.createElement("div");
@@ -257,16 +317,6 @@ document.body.appendChild(c);
 setTimeout(()=>c.remove(),2000);
 }
 }
-
-/* PETALS */
-setInterval(()=>{
-let p=document.createElement("div");
-p.className="petal";
-p.style.left=Math.random()*100+"vw";
-p.style.animationDuration=(3+Math.random()*5)+"s";
-document.body.appendChild(p);
-setTimeout(()=>p.remove(),8000);
-},300);
 
 </script>
 
