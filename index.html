@@ -7,579 +7,198 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 font-family:'Poppins',sans-serif;
-background:
-radial-gradient(circle at top,#1f3328,#0c1410 70%);
+background:radial-gradient(circle at top,#1f3328,#0c1410 70%);
 color:white;
 overflow-x:hidden;
-min-height:100vh;
 }
 
 /* INTRO */
-
 #intro{
 position:fixed;
 inset:0;
-background:
-radial-gradient(circle at top,#1f3328,#0c1410 70%);
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
-overflow:hidden;
+background:radial-gradient(circle at top,#1f3328,#0c1410 70%);
 z-index:9999;
 transition:1s;
 }
 
-/* MOON */
-
-.moon-glow{
-position:absolute;
-top:80px;
-right:60px;
-width:120px;
-height:120px;
-border-radius:50%;
-background:#f5e6a8;
-box-shadow:
-0 0 30px rgba(245,230,168,.4),
-0 0 80px rgba(245,230,168,.2);
-opacity:.15;
-}
-
-/* BACKGROUND GLOW */
-
-.bg-glow{
-position:absolute;
-width:500px;
-height:500px;
-border-radius:50%;
-background:
-radial-gradient(circle,
-rgba(202,166,75,0.08),
-transparent 70%);
-filter:blur(40px);
-animation:glowMove 10s infinite alternate;
-}
-
-@keyframes glowMove{
-from{
-transform:translate(-50px,-30px);
-}
-to{
-transform:translate(50px,30px);
-}
-}
-
-/* INTRO LOGO */
-
 .loader-logo{
 font-family:'Cinzel',serif;
-font-size:70px;
-letter-spacing:12px;
-margin-bottom:30px;
-animation:zoomGlow 3s infinite alternate;
-z-index:2;
+font-size:65px;
+letter-spacing:10px;
 }
 
-@keyframes zoomGlow{
-from{
-transform:scale(1);
-filter:drop-shadow(0 0 10px rgba(245,230,168,.3));
-}
-to{
-transform:scale(1.05);
-filter:drop-shadow(0 0 25px rgba(245,230,168,.8));
-}
+.loader-ring{
+width:80px;
+height:80px;
+border-radius:50%;
+border:3px solid rgba(255,255,255,.1);
+border-top:3px solid #f5e6a8;
+margin-top:20px;
+animation:spin 1s linear infinite;
 }
 
-/* GOLD TEXT */
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* MAIN */
+.container{
+display:none;
+text-align:center;
+padding:20px;
+}
+
+/* CARD */
+.card{
+background:rgba(255,255,255,.06);
+padding:30px;
+border-radius:25px;
+max-width:420px;
+margin:40px auto;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+font-family:'Cinzel',serif;
+font-size:55px;
+}
+
+.names{
+font-family:'Great Vibes',cursive;
+font-size:65px;
+margin:20px 0;
+}
 
 .gold{
-background:
-linear-gradient(45deg,#caa64b,#f5e6a8,#caa64b);
+background:linear-gradient(45deg,#caa64b,#f5e6a8);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-/* LOADER */
-
-.loader-ring{
-width:90px;
-height:90px;
-border-radius:50%;
-border:3px solid rgba(255,255,255,.08);
-border-top:3px solid #f5e6a8;
-animation:spin 1.4s linear infinite;
-z-index:2;
-}
-
-@keyframes spin{
-100%{
-transform:rotate(360deg);
-}
-}
-
-.loading-text{
-margin-top:20px;
-font-size:13px;
-letter-spacing:4px;
-color:#bbb;
-animation:pulse 2s infinite;
-z-index:2;
-}
-
-@keyframes pulse{
-0%,100%{
-opacity:.3;
-}
-50%{
-opacity:1;
-}
-}
-
-/* PARTICLES */
-
-.particle{
-position:absolute;
-width:3px;
-height:3px;
-background:#f5e6a8;
-border-radius:50%;
-opacity:.7;
-animation:floatParticle linear infinite;
-}
-
-@keyframes floatParticle{
-from{
-transform:translateY(100vh) scale(.5);
-opacity:0;
-}
-to{
-transform:translateY(-10vh) scale(1);
-opacity:1;
-}
-}
-
-/* LANTERNS */
-
-.lantern{
-position:absolute;
-bottom:-120px;
-width:30px;
-height:50px;
-background:rgba(245,230,168,.15);
-border:1px solid rgba(245,230,168,.3);
-border-radius:10px;
-box-shadow:0 0 20px rgba(245,230,168,.2);
-animation:lanternFloat linear infinite;
-}
-
-.lantern::before{
-content:"";
-position:absolute;
-top:-8px;
-left:50%;
-transform:translateX(-50%);
-width:12px;
-height:8px;
-border-radius:4px;
-background:#caa64b;
-}
-
-.lantern::after{
-content:"";
-position:absolute;
-top:12px;
-left:50%;
-transform:translateX(-50%);
-width:10px;
-height:10px;
-border-radius:50%;
-background:#f5e6a8;
-box-shadow:0 0 15px rgba(245,230,168,.8);
-}
-
-@keyframes lanternFloat{
-from{
-transform:translateY(0) rotate(0deg);
-opacity:0;
-}
-20%{
-opacity:1;
-}
-to{
-transform:translateY(-120vh) rotate(8deg);
-opacity:0;
-}
-}
-
-/* MAIN */
-
-.container{
-display:none;
-padding:20px;
-text-align:center;
-animation:cinematicReveal 2s ease;
-}
-
-@keyframes cinematicReveal{
-from{
-opacity:0;
-transform:scale(1.05);
-filter:blur(10px);
-}
-to{
-opacity:1;
-transform:scale(1);
-filter:blur(0);
-}
-}
-
-/* CARD */
-
-.card{
-background:rgba(255,255,255,.06);
-backdrop-filter:blur(30px);
-padding:32px 24px;
-border-radius:28px;
-max-width:420px;
-margin:40px auto;
-box-shadow:0 20px 60px rgba(0,0,0,.7);
-border:1px solid rgba(255,255,255,.08);
-}
-
-/* LOGO */
-
-.logo{
-font-family:'Cinzel',serif;
-font-size:56px;
-letter-spacing:8px;
-margin-bottom:10px;
-}
-
-/* NAMES */
-
-.names{
-font-family:'Great Vibes',cursive;
-font-size:66px;
-line-height:1.2;
-margin:25px 0;
-text-shadow:
-0 0 15px rgba(245,230,168,.5);
-}
-
-/* TEXT */
-
-.sub{
-font-size:13px;
-color:#bbb;
-margin-top:6px;
-line-height:1.7;
-}
-
-p{
-line-height:1.7;
-}
-
 /* BUTTON */
-
 .btn{
 width:100%;
-padding:15px;
-margin-top:14px;
+padding:14px;
+margin-top:12px;
 border:none;
 border-radius:30px;
-background:
-linear-gradient(45deg,#caa64b,#f5e6a8);
-color:#1c2e24;
+background:linear-gradient(45deg,#caa64b,#f5e6a8);
 font-weight:600;
 cursor:pointer;
-transition:.3s;
-font-size:14px;
 }
 
-.btn:hover{
-transform:translateY(-2px);
-box-shadow:0 10px 25px rgba(202,166,75,.4);
-}
-
-/* PAGES */
-
-.page{
-display:none;
-opacity:0;
-transform:translateY(20px);
-transition:.5s;
-}
-
-.page.show{
-opacity:1;
-transform:translateY(0);
-}
-
-/* MUSIC BUTTON */
-
+/* MUSIC */
 .music-btn{
 position:fixed;
-top:20px;
-right:20px;
-width:48px;
-height:48px;
+top:15px;
+right:15px;
+width:45px;
+height:45px;
 border-radius:50%;
 background:rgba(255,255,255,.1);
 border:none;
 color:white;
-font-size:18px;
 cursor:pointer;
-backdrop-filter:blur(10px);
 z-index:100;
 }
 
 /* PETALS */
-
 .petal{
 position:fixed;
 top:-10px;
-width:8px;
-height:8px;
+width:6px;
+height:6px;
 background:pink;
 border-radius:50%;
-animation:fall linear infinite;
+animation:fall linear;
 }
 
 @keyframes fall{
-to{
-transform:translateY(110vh);
-}
+to{transform:translateY(110vh);}
 }
 
-/* FOOTER */
-
-.footer{
-text-align:center;
-margin-top:50px;
-padding-bottom:20px;
-opacity:.9;
-}
-
-.footer-line{
-width:60%;
-height:1px;
-margin:20px auto;
-background:
-linear-gradient(to right,
-transparent,
-#caa64b,
-transparent);
-opacity:.5;
-}
-
-.footer-content{
-font-size:12px;
-color:#aaa;
-letter-spacing:1px;
-}
-
-.footer-content a{
-display:inline-block;
-margin-top:5px;
-font-size:14px;
-color:#f5e6a8;
-text-decoration:none;
-position:relative;
-}
-
-.footer-content a:hover{
-text-shadow:
-0 0 8px rgba(245,230,168,.6);
-}
-
-.footer-content a::after{
-content:"";
-position:absolute;
-left:0;
-bottom:-2px;
-width:0%;
-height:1px;
-background:#caa64b;
-transition:.3s;
-}
-
-.footer-content a:hover::after{
-width:100%;
+/* EXPORT AREA */
+#exportArea{
+position:fixed;
+left:-9999px;
+top:0;
+width:420px;
+background:#0c1410;
+padding:30px;
 }
 
 </style>
 </head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <body>
 
 <!-- INTRO -->
-
 <div id="intro">
-
-<div class="moon-glow"></div>
-
-<div class="loader-logo gold">
-S & J
-</div>
-
+<div style="text-align:center;">
+<div class="loader-logo gold">S & J</div>
 <div class="loader-ring"></div>
-
-<p class="loading-text">
-Preparing your invitation...
-</p>
-
+</div>
 </div>
 
-<!-- MUSIC BUTTON -->
-
-<button class="music-btn" onclick="toggleMusic()">
-🔊
-</button>
+<!-- MUSIC -->
+<button class="music-btn" onclick="toggleMusic()">🔊</button>
 
 <!-- MAIN -->
-
 <div class="container" id="main">
 
-<!-- CARD -->
+<button class="btn" id="openBtn">✨ Open Invitation</button>
 
 <div class="card" id="card">
 
-<div class="logo gold">
-S & J
-</div>
-
-<div class="gold" style="font-size:22px;">
-﷽
-</div>
-
-<p class="sub">
-In the name of Allah, the Most Gracious, the Most Merciful
-</p>
-
-<p class="sub">
-Together with their families
-</p>
+<div class="logo gold">S & J</div>
 
 <div class="names gold">
-Shaima Sheri <br>
-❤ <br>
-Junaid
+Shaima Sheri <br> ❤ <br> Junaid
 </div>
 
-<p>
-June 7, 2026 • 12:00 PM
-</p>
+<p>June 7, 2026 • 12:00 PM</p>
 
 <p onclick="openMap()" style="cursor:pointer;">
-Triangle Convention Center<br>
-Ayyappanov, Malappuram
+Triangle Convention Center
 </p>
 
-<button class="btn" onclick="openMap()">
-View Location
-</button>
+<button class="btn" onclick="openMap()">View Location</button>
+<button class="btn" onclick="addCalendar()">Add to Calendar</button>
 
-<button class="btn" onclick="addCalendar()">
-Add to Calendar
-</button>
+<h3>Will you join us?</h3>
 
-<h3 style="margin-top:20px;">
-Will you join us?
-</h3>
+<button class="btn" onclick="sendRSVP('Yes')">Yes</button>
+<button class="btn" style="background:#888;color:white;" onclick="sendRSVP('No')">No</button>
 
-<button class="btn" onclick="sendRSVP('Yes')">
-✓ Yes, with joy!
-</button>
-
-<button class="btn"
-style="background:#888;color:white;"
-onclick="sendRSVP('No')">
-✕ Sorry, I can't make it
-</button>
-
-</div>
-
-<!-- YES PAGE -->
-
-<div id="yesPage" class="page card">
-
-<h2 class="gold">
-We Can't Wait!
-</h2>
-
-<p>
-See you on June 7, 2026 💖
-</p>
 <button class="btn" onclick="downloadAutoCard()">
 📸 Download Invitation
 </button>
 
-<button class="btn" onclick="goBack()">
-← Back
-</button>
+</div>
+
+<div id="yesPage" class="card" style="display:none">
+<h2 class="gold">We Can't Wait!</h2>
+<button class="btn" onclick="goBack()">Back</button>
+</div>
+
+<div id="noPage" class="card" style="display:none">
+<h2 class="gold">We'll Miss You</h2>
+<button class="btn" onclick="goBack()">Back</button>
+</div>
 
 </div>
 
-<!-- NO PAGE -->
-
-<div id="noPage" class="page card">
-
-<h2 class="gold">
-We'll Miss You
-</h2>
-
-<p>
-You'll be in our hearts 💖
-</p>
-
-<button class="btn"
-onclick="sendRSVP('Yes')">
-Change my mind
-</button>
-
-<button class="btn"
-onclick="goBack()">
-← Back
-</button>
-
-</div>
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-<div class="footer-line"></div>
-
-<div class="footer-content">
-<span>
-Crafted with ✨ by
-</span>
-<br>
-
-<a href="https://instagram.com/sinan._u"
-target="_blank">
-@sinan._u
-</a>
-
-</div>
-
-</footer>
-
-</div>
-
-<!-- LOCAL MUSIC -->
+<!-- EXPORT AREA -->
+<div id="exportArea"></div>
 
 <audio id="music" loop>
 <source src="music.mp3" type="audio/mpeg">
@@ -587,261 +206,91 @@ target="_blank">
 
 <script>
 
-/* PARTICLES */
+let card, yesPage, noPage, music, playing=false;
 
-for(let i=0;i<50;i++){
-
-let p=document.createElement("div");
-
-p.className="particle";
-
-p.style.left=Math.random()*100+"vw";
-
-p.style.animationDuration=
-(5+Math.random()*5)+"s";
-
-p.style.animationDelay=
-Math.random()*5+"s";
-
-document.getElementById("intro")
-.appendChild(p);
-
-}
-
-/* LANTERNS */
-
-for(let i=0;i<8;i++){
-
-let l=document.createElement("div");
-
-l.className="lantern";
-
-l.style.left=Math.random()*100+"vw";
-
-l.style.animationDuration=
-(10+Math.random()*10)+"s";
-
-l.style.animationDelay=
-Math.random()*5+"s";
-
-document.getElementById("intro")
-.appendChild(l);
-
-}
-
-/* BG GLOW */
-
-let glow=document.createElement("div");
-
-glow.className="bg-glow";
-
-glow.style.top="20%";
-glow.style.left="30%";
-
-document.getElementById("intro")
-.appendChild(glow);
-
-/* LOADING SCREEN */
-
+/* INIT */
 window.onload=()=>{
+card=document.getElementById("card");
+yesPage=document.getElementById("yesPage");
+noPage=document.getElementById("noPage");
+music=document.getElementById("music");
 
 setTimeout(()=>{
-
-document.getElementById("intro")
-.style.opacity="0";
-
-setTimeout(()=>{
-
-document.getElementById("intro")
-.style.display="none";
-
-document.getElementById("main")
-.style.display="block";
-
-showStartButton();
-
-},1000);
-
-},4500);
-
+document.getElementById("intro").style.display="none";
+document.getElementById("main").style.display="block";
+},3500);
 };
 
-/* OPEN INVITATION BUTTON */
-
-function showStartButton(){
-
-const btn=document.createElement("button");
-
-btn.innerHTML="✨ Open Invitation";
-
-btn.className="btn";
-
-btn.style.maxWidth="260px";
-btn.style.margin="0 auto 25px";
-
-btn.onclick=()=>{
-
-const music=document.getElementById("music");
-
-music.play();
-
+/* MUSIC */
+document.getElementById("openBtn").onclick=async()=>{
+await music.play();
 playing=true;
-
-document.querySelector(".music-btn").innerText="🔊";
-
-btn.remove();
-
+document.getElementById("openBtn").remove();
 };
-
-document.getElementById("main")
-.prepend(btn);
-
-}
-
-/* MUSIC CONTROL */
-
-let playing=false;
 
 function toggleMusic(){
-
-const music=document.getElementById("music");
-
-if(playing){
-
-music.pause();
-
-document.querySelector(".music-btn").innerText="🔇";
-
-}else{
-
-music.play();
-
-document.querySelector(".music-btn").innerText="🔊";
-
-}
-
+if(playing)music.pause();
+else music.play();
 playing=!playing;
-
 }
 
 /* MAP */
-
 function openMap(){
-
-window.open(
-"https://maps.app.goo.gl/nJRiQzDbnz9yDSkZA"
-);
-
+window.open("https://maps.app.goo.gl/nJRiQzDbnz9yDSkZA");
 }
 
 /* CALENDAR */
-
 function addCalendar(){
-
-window.open(
-"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding&dates=20260607T063000Z/20260607T093000Z"
-);
-
+window.open("https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding&dates=20260607T120000/20260607T150000");
 }
 
 /* RSVP */
-
 function sendRSVP(r){
-
 card.style.display="none";
-
-if(r=="Yes"){
-
-yesPage.style.display="block";
-
-setTimeout(()=>{
-yesPage.classList.add("show");
-},50);
-
-celebrate();
-
-}else{
-
-noPage.style.display="block";
-
-setTimeout(()=>{
-noPage.classList.add("show");
-},50);
-
-}
-
+if(r==="Yes")yesPage.style.display="block";
+else noPage.style.display="block";
 }
 
 /* BACK */
-
 function goBack(){
-
 card.style.display="block";
-
 yesPage.style.display="none";
 noPage.style.display="none";
-
-yesPage.classList.remove("show");
-noPage.classList.remove("show");
-
 }
 
-/* PETALS */
-
-setInterval(()=>{
-
-let p=document.createElement("div");
-
-p.className="petal";
-
-p.style.left=Math.random()*100+"vw";
-
-p.style.animationDuration=
-(3+Math.random()*5)+"s";
-
-document.body.appendChild(p);
-
-setTimeout(()=>{
-p.remove();
-},8000);
-
-},300);
-
-/* CELEBRATION */
-
-function celebrate(){
-
-for(let i=0;i<20;i++){
-
-let c=document.createElement("div");
-
-c.className="petal";
-
-c.style.left=Math.random()*100+"vw";
-
-c.style.animationDuration="2s";
-
-document.body.appendChild(c);
-
-setTimeout(()=>{
-c.remove();
-},2000);
-
-}
-
-}
+/* 🌟 FIXED DOWNLOAD SYSTEM (GITHUB SAFE) */
 function downloadAutoCard(){
 
-html2canvas(card,{
-scale:3,
+const original=document.getElementById("card");
+const exportArea=document.getElementById("exportArea");
+
+/* clone clean version */
+const clone=original.cloneNode(true);
+
+/* remove problematic styles */
+clone.style.backdropFilter="none";
+clone.style.boxShadow="none";
+clone.style.transform="none";
+
+/* move to export area */
+exportArea.innerHTML="";
+exportArea.appendChild(clone);
+
+/* render */
+html2canvas(clone,{
+scale:4,
 useCORS:true,
+allowTaint:true,
 backgroundColor:"#0c1410"
 }).then(canvas=>{
 
 const link=document.createElement("a");
 link.download="Shaima_Junaid_Nikkah_Invitation.png";
-canvas.toDataURL("image/png")
+link.href=canvas.toDataURL("image/png");
 link.click();
+
+/* cleanup */
+exportArea.innerHTML="";
 
 });
 
