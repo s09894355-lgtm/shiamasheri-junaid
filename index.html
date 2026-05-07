@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S & J Wedding</title>
+<title>S & J Wedding Invitation</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -56,7 +56,7 @@ box-shadow:
 opacity:.15;
 }
 
-/* BG GLOW */
+/* BACKGROUND GLOW */
 
 .bg-glow{
 position:absolute;
@@ -84,7 +84,7 @@ transform:translate(50px,30px);
 
 .loader-logo{
 font-family:'Cinzel',serif;
-font-size:64px;
+font-size:70px;
 letter-spacing:12px;
 margin-bottom:30px;
 animation:zoomGlow 3s infinite alternate;
@@ -102,7 +102,7 @@ filter:drop-shadow(0 0 25px rgba(245,230,168,.8));
 }
 }
 
-/* GOLD */
+/* GOLD TEXT */
 
 .gold{
 background:
@@ -262,7 +262,7 @@ border:1px solid rgba(255,255,255,.08);
 
 .logo{
 font-family:'Cinzel',serif;
-font-size:52px;
+font-size:56px;
 letter-spacing:8px;
 margin-bottom:10px;
 }
@@ -271,7 +271,7 @@ margin-bottom:10px;
 
 .names{
 font-family:'Great Vibes',cursive;
-font-size:64px;
+font-size:66px;
 line-height:1.2;
 margin:25px 0;
 text-shadow:
@@ -421,7 +421,7 @@ width:100%;
 
 </style>
 </head>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <body>
 
 <!-- INTRO -->
@@ -465,8 +465,7 @@ S & J
 </div>
 
 <p class="sub">
-In the name of Allah, the Most Gracious,
-the Most Merciful
+In the name of Allah, the Most Gracious, the Most Merciful
 </p>
 
 <p class="sub">
@@ -523,6 +522,9 @@ We Can't Wait!
 <p>
 See you on June 7, 2026 💖
 </p>
+<button class="btn" onclick="downloadAutoCard()">
+📸 Download Invitation
+</button>
 
 <button class="btn" onclick="goBack()">
 ← Back
@@ -603,6 +605,7 @@ Math.random()*5+"s";
 
 document.getElementById("intro")
 .appendChild(p);
+
 }
 
 /* LANTERNS */
@@ -623,6 +626,7 @@ Math.random()*5+"s";
 
 document.getElementById("intro")
 .appendChild(l);
+
 }
 
 /* BG GLOW */
@@ -637,7 +641,7 @@ glow.style.left="30%";
 document.getElementById("intro")
 .appendChild(glow);
 
-/* AUTO OPEN */
+/* LOADING SCREEN */
 
 window.onload=()=>{
 
@@ -654,7 +658,7 @@ document.getElementById("intro")
 document.getElementById("main")
 .style.display="block";
 
-music.play().catch(()=>{});
+showStartButton();
 
 },1000);
 
@@ -662,22 +666,62 @@ music.play().catch(()=>{});
 
 };
 
-/* MUSIC */
+/* OPEN INVITATION BUTTON */
 
-let playing=true;
+function showStartButton(){
+
+const btn=document.createElement("button");
+
+btn.innerHTML="✨ Open Invitation";
+
+btn.className="btn";
+
+btn.style.maxWidth="260px";
+btn.style.margin="0 auto 25px";
+
+btn.onclick=()=>{
+
+const music=document.getElementById("music");
+
+music.play();
+
+playing=true;
+
+document.querySelector(".music-btn").innerText="🔊";
+
+btn.remove();
+
+};
+
+document.getElementById("main")
+.prepend(btn);
+
+}
+
+/* MUSIC CONTROL */
+
+let playing=false;
 
 function toggleMusic(){
 
+const music=document.getElementById("music");
+
 if(playing){
+
 music.pause();
-event.target.innerText="🔇";
-}
-else{
+
+document.querySelector(".music-btn").innerText="🔇";
+
+}else{
+
 music.play();
-event.target.innerText="🔊";
+
+document.querySelector(".music-btn").innerText="🔊";
+
 }
 
 playing=!playing;
+
 }
 
 /* MAP */
@@ -716,8 +760,7 @@ yesPage.classList.add("show");
 
 celebrate();
 
-}
-else{
+}else{
 
 noPage.style.display="block";
 
@@ -785,6 +828,33 @@ c.remove();
 },2000);
 
 }
+
+}
+function downloadAutoCard(){
+
+const card = document.getElementById("card");
+
+/* temporary style for better export */
+card.style.transform = "scale(1)";
+card.style.boxShadow = "0 0 40px rgba(0,0,0,0.8)";
+
+html2canvas(card, {
+scale:2,
+backgroundColor:null
+}).then(canvas => {
+
+const link = document.createElement("a");
+
+link.download = "Shaima-Junaid-Invitation.png";
+link.href = canvas.toDataURL();
+
+link.click();
+
+/* reset */
+card.style.transform="";
+card.style.boxShadow="";
+
+});
 
 }
 
