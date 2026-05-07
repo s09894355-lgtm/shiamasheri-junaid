@@ -832,27 +832,16 @@ c.remove();
 }
 function downloadAutoCard(){
 
-const card = document.getElementById("card");
+html2canvas(card,{
+scale:3,
+useCORS:true,
+backgroundColor:"#0c1410"
+}).then(canvas=>{
 
-/* temporary style for better export */
-card.style.transform = "scale(1)";
-card.style.boxShadow = "0 0 40px rgba(0,0,0,0.8)";
-
-html2canvas(card, {
-scale:2,
-backgroundColor:null
-}).then(canvas => {
-
-const link = document.createElement("a");
-
-link.download = "Shaima-Junaid-Invitation.png";
-link.href = canvas.toDataURL();
-
+const link=document.createElement("a");
+link.download="Shaima_Junaid_Nikkah_Invitation.png";
+canvas.toDataURL("image/png")
 link.click();
-
-/* reset */
-card.style.transform="";
-card.style.boxShadow="";
 
 });
 
